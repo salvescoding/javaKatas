@@ -9,25 +9,18 @@ import static java.util.stream.Collectors.groupingBy;
 public class Anagram {
 
 
-    private final Map<String, Long> anagram;
-    private final String originalAnagram;
+    private final String anagram;
 
     public Anagram(String anagram) {
-        this.anagram = Arrays.stream(anagram.toLowerCase(Locale.ROOT).split(""))
-                .collect(groupingBy(c -> c, Collectors.counting()));
-        this.originalAnagram = anagram;
+        this.anagram = anagram;
     }
 
 
     public List<String> match(List<String> words) {
+        final int[] anagramToCompare = anagram.toLowerCase().chars().sorted().toArray();
         return words.stream()
-                .filter(word -> !word.toLowerCase(Locale.ROOT).equals(originalAnagram.toLowerCase(Locale.ROOT)))
-                .filter(this::isAnagram)
+                .filter(word ->  Arrays.equals(anagramToCompare, word.toLowerCase(Locale.ROOT).chars().sorted().toArray())
+                    && !word.toLowerCase(Locale.ROOT).equals(anagram.toLowerCase(Locale.ROOT)))
                 .collect(Collectors.toList());
-    }
-
-    private boolean isAnagram(String word ) {
-        return Arrays.stream(word.toLowerCase(Locale.ROOT).split(""))
-                .collect(groupingBy(c -> c, Collectors.counting())).equals(anagram);
     }
 }
