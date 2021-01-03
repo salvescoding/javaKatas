@@ -1,0 +1,11 @@
+*/build
+*/.gradle
+*/gradlew
+*/gradle
+*/.idea
+*/.exercism
+*/build.gradle
+*/gradlew.bat
+*/out
+*/src/main/kotlin/.keep
+.DS_Store
